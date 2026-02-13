@@ -25,7 +25,7 @@ const Header = () => {
       <div className="header-top">
         <div className="logo-section">
           <div className="logo">
-            <img src="images/logo_lord.avif" alt="Lord Buddha Public School Logo" />
+            <img src="/images/logo_lord.avif" alt="Lord Buddha Public School Logo" />
           </div>
           <div className="school-name">
             <h1>Lord Buddha Public School</h1>
@@ -103,14 +103,14 @@ const Gallery = () => {
   const [lightboxImage, setLightboxImage] = useState(null);
 
   const galleryItems = [
-    { id: 1, src: 'images/schoolbuild.png', title: 'Our Beautiful Campus', desc: 'Modern infrastructure with spacious grounds' },
-    { id: 2, src: 'images/outdoorlearning.png', title: 'Outdoor Education', desc: 'Learning beyond classrooms' },
-    { id: 3, src: 'images/yogawellness.png', title: 'Yoga & Wellness', desc: 'Holistic development of mind and body' },
-    { id: 4, src: 'images/interactivelearning.png', title: 'Interactive Classes', desc: 'Engaging teaching methods' },
-    { id: 5, src: 'images/outdoorevent.png', title: 'Special Events', desc: 'Celebrating achievements together' },
-    { id: 6, src: 'images/creativeactivites.png', title: 'Creative Expression', desc: 'Fostering creativity and talent' },
-    { id: 7, src: 'images/communityengagement.png', title: 'Community Learning', desc: 'Building values and character' },
-    { id: 8, src: 'images/natureconnection.png', title: 'Nature Connection', desc: 'Learning from our environment' }
+    { id: 1, src: '/images/schoolbuild.png', title: 'Our Beautiful Campus', desc: 'Modern infrastructure with spacious grounds' },
+    { id: 2, src: '/images/outdoorlearning.png', title: 'Outdoor Education', desc: 'Learning beyond classrooms' },
+    { id: 3, src: '/images/yogawellness.png', title: 'Yoga & Wellness', desc: 'Holistic development of mind and body' },
+    { id: 4, src: '/images/interactivelearning.png', title: 'Interactive Classes', desc: 'Engaging teaching methods' },
+    { id: 5, src: '/images/outdoorevent.png', title: 'Special Events', desc: 'Celebrating achievements together' },
+    { id: 6, src: '/images/creativeactivites.png', title: 'Creative Expression', desc: 'Fostering creativity and talent' },
+    { id: 7, src: '/images/communityengagement.png', title: 'Community Learning', desc: 'Building values and character' },
+    { id: 8, src: '/images/natureconnection.png', title: 'Nature Connection', desc: 'Learning from our environment' }
   ];
 
   const openLightbox = (src) => {
