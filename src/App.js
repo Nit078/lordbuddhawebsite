@@ -37,16 +37,17 @@ const Header = () => {
           <a href="mailto:lbpssiddharthnagar@gmail.com">✉️ lbpssiddharthnagar@gmail.com</a>
         </div>
       </div>
-      <nav>
-        <ul>
-          <li><a onClick={() => scrollToSection('home')}>Home</a></li>
-          <li><a onClick={() => scrollToSection('gallery')}>Gallery</a></li>
-          <li><a onClick={() => scrollToSection('about')}>About</a></li>
-          <li><a onClick={() => scrollToSection('facilities')}>Facilities</a></li>
-          <li><a onClick={() => scrollToSection('academics')}>Academics</a></li>
-          <li><a onClick={() => scrollToSection('contact')}>Contact</a></li>
-        </ul>
-      </nav>
+  <nav>
+  <ul>
+    <li><button onClick={() => scrollToSection('home')}>Home</button></li>
+    <li><button onClick={() => scrollToSection('gallery')}>Gallery</button></li>
+    <li><button onClick={() => scrollToSection('about')}>About</button></li>
+    <li><button onClick={() => scrollToSection('facilities')}>Facilities</button></li>
+    <li><button onClick={() => scrollToSection('academics')}>Academics</button></li>
+    <li><button onClick={() => scrollToSection('contact')}>Contact</button></li>
+  </ul>
+</nav>
+
     </header>
   );
 };

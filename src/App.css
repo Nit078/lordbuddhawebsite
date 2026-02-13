@@ -912,3 +912,15 @@ nav a:hover::after {
     height: 60px;
   }
 }
+nav ul li button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+}
+
+nav ul li button:hover {
+  text-decoration: underline;
+}
