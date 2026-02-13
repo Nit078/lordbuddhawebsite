@@ -116,50 +116,44 @@ body {
   opacity: 1;
   transform: scale(1.05);
 }
-
+/* NAVIGATION DESKTOP */
 nav {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
   margin-top: 1rem;
 }
 
 nav ul {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem;
   list-style: none;
   display: flex;
-  gap: 2.5rem;
   justify-content: center;
-  flex-wrap: wrap;
+  gap: 2rem;
 }
 
-nav a {
+nav ul li button {
+  background: none;
+  border: none;
   color: white;
-  text-decoration: none;
-  padding: 1rem 0;
-  display: block;
   font-weight: 600;
-  letter-spacing: 0.5px;
-  position: relative;
-  transition: all 0.3s;
   cursor: pointer;
+  font-size: 1rem;
+  position: relative;
+  padding: 0.5rem 0;
 }
 
-nav a::after {
-  content: '';
+nav ul li button::after {
+  content: "";
   position: absolute;
-  bottom: 0.5rem;
-  left: 0;
   width: 0;
   height: 3px;
+  bottom: -5px;
+  left: 0;
   background: var(--accent);
-  transition: width 0.3s;
+  transition: 0.3s;
 }
 
-nav a:hover::after {
+nav ul li button:hover::after {
   width: 100%;
 }
+
 
 /* Hero Section */
 .hero {
@@ -839,25 +833,30 @@ nav a:hover::after {
 
 /* Responsive Styles */
 /* ================= MOBILE IMPROVEMENTS ================= */
-
 @media (max-width: 968px) {
 
-  /* Header */
   .header-top {
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .logo-section {
-    flex-direction: column;
-    gap: 0.8rem;
+    flex-direction: row;
+    align-items: center;
   }
 
   .contact-quick {
-    flex-direction: column;
-    gap: 0.5rem;
+    display: none; /* hide phone/email in mobile for cleaner look */
   }
+
+  .hamburger {
+    display: flex;
+    margin-left: auto;
+  }
+
+
+
 
   /* Navigation */
   nav ul {
@@ -963,4 +962,80 @@ nav a:hover::after {
     align-items: center;
   }
 
+}
+/* ================= HAMBURGER MENU ================= */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: white;
+  transition: 0.4s;
+}
+
+/* Animation */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* MOBILE NAV */
+
+@media (max-width: 968px) {
+
+  .hamburger {
+    display: flex;
+  }
+
+  nav {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  nav.open {
+    max-height: 500px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+  }
+
+  nav ul li button {
+    width: 100%;
+    padding: 1rem 0;
+  }
+}
+/* HEADER LAYOUT FIX */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+/* Make sure logo stays left */
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+/* Move hamburger to right */
+.hamburger {
+  margin-left: auto;
 }

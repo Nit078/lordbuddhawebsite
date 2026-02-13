@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 // Header Component
+// Header Component
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,40 +19,53 @@ const Header = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setMenuOpen(false);
     }
   };
 
   return (
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="header-top">
+      <div className="header-container">
+        
+        {/* Logo Section */}
         <div className="logo-section">
           <div className="logo">
-            <img src="/images/logo_lord.avif" alt="Lord Buddha Public School Logo" />
+            <img src="/images/logo_lord.avif" alt="School Logo" />
           </div>
           <div className="school-name">
             <h1>Lord Buddha Public School</h1>
             <p>Pathra Bazar, Siddharthnagar</p>
           </div>
         </div>
-        <div className="contact-quick">
-          <a href="tel:09457338032">📞 094573 38032</a>
-          <a href="mailto:lbpssiddharthnagar@gmail.com">✉️ lbpssiddharthnagar@gmail.com</a>
-        </div>
-      </div>
-  <nav>
-  <ul>
-    <li><button onClick={() => scrollToSection('home')}>Home</button></li>
-    <li><button onClick={() => scrollToSection('gallery')}>Gallery</button></li>
-    <li><button onClick={() => scrollToSection('about')}>About</button></li>
-    <li><button onClick={() => scrollToSection('facilities')}>Facilities</button></li>
-    <li><button onClick={() => scrollToSection('academics')}>Academics</button></li>
-    <li><button onClick={() => scrollToSection('contact')}>Contact</button></li>
-  </ul>
-</nav>
 
+        {/* Desktop Nav */}
+        <nav className={`nav ${menuOpen ? 'open' : ''}`}>
+          <ul>
+            <li><button onClick={() => scrollToSection('home')}>Home</button></li>
+            <li><button onClick={() => scrollToSection('gallery')}>Gallery</button></li>
+            <li><button onClick={() => scrollToSection('about')}>About</button></li>
+            <li><button onClick={() => scrollToSection('facilities')}>Facilities</button></li>
+            <li><button onClick={() => scrollToSection('academics')}>Academics</button></li>
+            <li><button onClick={() => scrollToSection('contact')}>Contact</button></li>
+          </ul>
+        </nav>
+
+        {/* Hamburger */}
+        <div 
+          className={`hamburger ${menuOpen ? 'active' : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+      </div>
     </header>
   );
 };
+
+
 
 // Hero Component
 const Hero = () => {
