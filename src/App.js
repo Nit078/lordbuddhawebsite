@@ -266,41 +266,85 @@ const Academics = () => {
 };
 
 // Contact Component
+// Contact Component
+
+
+
+// Contact Component
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
+  const [result, setResult] = useState("");
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setResult("Sending...");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    const form = event.target;
+
+    // Prepare form data for Web3Forms
+    const formData = new FormData(form);
+    formData.append("access_key", "6dea45c0-dd11-4a60-9122-a1f28ecedf40");
+    formData.append("subject", "New Admission Inquiry - LBPS Website");
+
+    // Prepare JSON for Google Sheet
+    const sheetData = {
+      name: form.name.value,
+      email: form.email.value,
+      phone: form.phone.value,
+      message: form.message.value,
+    };
+
+    try {
+      // 1️⃣ Send email
+      const emailResponse = await fetch(
+        "https://api.web3forms.com/submit",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const emailResult = await emailResponse.json();
+
+      // 2️⃣ Save to Google Sheet
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbzv_fg4ejrnc-sG0V1mB2XOGoOUC9VHA-POy7pcziNN42n3l_mg7yqUTAaYxmqLFoKT6g/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(sheetData),
+        }
+      );
+
+      if (emailResult.success) {
+        setResult("✅ Message sent successfully!");
+        form.reset();
+      } else {
+        setResult("❌ Email sending failed.");
+      }
+
+    } catch (error) {
+      console.error(error);
+      setResult("❌ Something went wrong.");
+    }
   };
 
   const contactInfo = [
     { icon: '📍', title: 'Address', content: 'Lord Buddha Public School\nPathra Bazar, Siddharthnagar\nUttar Pradesh, India' },
     { icon: '📞', title: 'Phone', content: '094573 38032', link: 'tel:09457338032' },
-    { icon: '✉️', title: 'Email', content: 'lbpssiddharthnagar@gmail.com', link: 'mailto:lbpssiddharthnagar@gmail.com' },
-    { icon: '📱', title: 'Instagram', content: '@lord_buddha_public_school_79', link: 'https://instagram.com/lord_buddha_public_school_79' }
+    { icon: '✉️', title: 'Email', content: 'lbpssiddharthnagar@gmail.com', link: 'mailto:lbpssiddharthnagar@gmail.com' }
   ];
 
   return (
     <section id="contact" className="contact">
       <div className="container">
         <h2 className="section-title">Get In Touch</h2>
-        <p className="section-subtitle">We'd love to hear from you. Reach out for admissions or any queries.</p>
-        
+
         <div className="contact-grid">
+
+          {/* Contact Info */}
           <div className="contact-info">
             {contactInfo.map((info, index) => (
               <div key={index} className="contact-item">
@@ -308,7 +352,9 @@ const Contact = () => {
                 <div className="contact-details">
                   <h3>{info.title}</h3>
                   {info.link ? (
-                    <p><a href={info.link} target={info.link.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">{info.content}</a></p>
+                    <p>
+                      <a href={info.link}>{info.content}</a>
+                    </p>
                   ) : (
                     <p style={{ whiteSpace: 'pre-line' }}>{info.content}</p>
                   )}
@@ -317,59 +363,55 @@ const Contact = () => {
             ))}
           </div>
 
+          {/* Contact Form */}
           <div className="contact-form">
             <form onSubmit={handleSubmit}>
+
               <div className="form-group">
-                <label htmlFor="name">Your Name</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
-                  value={formData.name}
-                  onChange={handleChange}
-                  required 
-                />
+                <label>Your Name</label>
+                <input type="text" name="name" required />
               </div>
+
               <div className="form-group">
-                <label htmlFor="email">Email Address</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  value={formData.email}
-                  onChange={handleChange}
-                  required 
-                />
+                <label>Email Address</label>
+                <input type="email" name="email" required />
               </div>
+
               <div className="form-group">
-                <label htmlFor="phone">Phone Number</label>
-                <input 
-                  type="tel" 
-                  id="phone" 
-                  name="phone" 
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required 
-                />
+                <label>Phone Number</label>
+                <input type="tel" name="phone" required />
               </div>
+
               <div className="form-group">
-                <label htmlFor="message">Your Message</label>
-                <textarea 
-                  id="message" 
-                  name="message" 
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                ></textarea>
+                <label>Your Message</label>
+                <textarea name="message" required></textarea>
               </div>
-              <button type="submit" className="btn btn-primary">Send Message</button>
+
+              <button type="submit" className="btn btn-primary">
+                Send Message
+              </button>
+
             </form>
+
+            {result && (
+              <p style={{ marginTop: "10px", fontWeight: "bold" }}>
+                {result}
+              </p>
+            )}
+
           </div>
+
         </div>
       </div>
     </section>
   );
 };
+
+
+
+
+
+
 
 // Footer Component
 const Footer = () => {
@@ -399,6 +441,7 @@ const Footer = () => {
         <div className="footer-bottom">
           <p>&copy; 2026 Lord Buddha Public School. All rights reserved.</p>
           <p>Building futures, one student at a time.</p>
+          <p>Developed & Maintained by Nitin!</p>
         </div>
       </div>
     </footer>
